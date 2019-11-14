@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    // use AsyncTask be careful WeakReference
+    // use httpURLConnection  connect web url get data
     public static class Task extends AsyncTask<String, Integer, String> {
         private final WeakReference<MainActivity> weakActivity;
 
@@ -84,14 +85,17 @@ public class MainActivity extends AppCompatActivity {
 
             MainActivity activity = weakActivity.get();
 
+            //parse the jsonArray
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                     String value1 = jsonObject1.optString("name");
                     String value2 = jsonObject1.optString("number");
+                    //result json 
                     Log.d("json", value1 + ":" + value2);
 
+                    //result jsonArray
                     activity.textView.setText(s);
                 }
 
